@@ -1,10 +1,16 @@
+
+
+
+
+// hydrabolt's implemenation of discord.js
 var Discord = require("discord.js");
+// Email and Password of discordbot
+var Login = require("./auth.json");
+var discordbot = new Discord.Client();
 
-var mybot = new Discord.Client();
-
-mybot.on("message", function(message){
+discordbot.on("message", function(message){
     if(message.content === "ping")
-        mybot.reply(message, "pong");
+        discordbot.reply(message, "pong");
 });
 
-mybot.login("gameratesc@gmail.com", "eq1k2v3");
+discordbot.login(Login.email, Login.password);
