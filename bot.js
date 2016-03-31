@@ -7,7 +7,7 @@ var Discord = require("discord.js");
 // Email and Password of discordbot
 var Login = require("./auth.json");
 // Maid-chan json from seroz
-var maidchan = require("./maid-chan.json");
+var maidchan = require("./maid-chan");
 
 var discordbot = new Discord.Client();
 
