@@ -39,7 +39,7 @@ discordbot.on("message", function(message){
 	
 	if (message.content.startsWith("add")) {
 		Response[message.content.split(" ").slice(1)] = message.content.split(" ").slice(2);
-		fs.writeFile('response.json', JSON.strijgify(response), function(err){
+		fs.writeFile('response.json', JSON.stringify(response), function(err){
 			console.log(err);
 		})
 	}
