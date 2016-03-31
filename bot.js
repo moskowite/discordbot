@@ -7,7 +7,7 @@ var Discord = require("discord.js");
 // Email and Password of discordbot
 var Login = require("./auth.json");
 // Maid-chan json from seroz
-//var maidchan = require("./maidchan.json");
+var maidchan = require("./maid-chan.json");
 
 var discordbot = new Discord.Client();
 
@@ -27,9 +27,14 @@ discordbot.on("disconnected", function () {
 });
 
 discordbot.on("message", function(msg){
-    	if (!msg.content.startsWith("$")) return;
+
+    if (!msg.content.startsWith("$")) return;
 
 	msg.content = msg.content.substr(1);
+
+	if(maidchan.hasOwnProperty(msg.content)) {
+		msg.sendMessage(msg.channel,maidchan[msg.content]);
+	}
 
 	if (msg.content === "stats") {
 		msg.reply([
@@ -51,9 +56,10 @@ discordbot.on("message", function(msg){
 		});
 	}		
 
-
 	if(msg.content.startsWith("ping"))
         	discordbot.reply(msg, "really?");
 });
+
+
 
 discordbot.login(Login.email, Login.password);
