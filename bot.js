@@ -1,14 +1,14 @@
 
 // hydrabolt's implemenation of discord.js
-var Discord = require("discord.js");
+var discord = require("discord.js");
 // email and password of discordbot
-var Login = require("./auth");
+var login = require("./auth");
 // response json from seroz
-var Response = require("./response");
+var response = require("./response");
 // fs to read/write json
 var fs = require("fs");
 
-const discordbot = new Discord.Client();
+const discordbot = new discord.Client();
 
 //when the bot is ready
 discordbot.on("ready", function () {
@@ -30,15 +30,15 @@ discordbot.on("message", function(message){
 
 	message.content = message.content.substr(1);
 
-	if (Response.hasOwnProperty(message.content)) {
+	if (response.hasOwnProperty(message.content)) {
 		discordbot.sendMessage(
 			message.channel,
-			Response[message.content]
+			response[message.content]
 			);
 	}
 	
 	if (message.content.startsWith("add")) {
-		Response[message.content.split(" ").slice(1)] = message.content.split(" ").slice(2);
+		response[message.content.split(" ").slice(1)] = message.content.split(" ").slice(2);
 		fs.writeFile('response.json', JSON.stringify(response), function(err){
 			console.log(err);
 		})
@@ -68,7 +68,7 @@ discordbot.on("message", function(message){
         	discordbot.reply(message, "really?");
 });
 
-discordbot.login(Login.email, Login.password);
+discordbot.login(login.email, login.password);
 
 
 
