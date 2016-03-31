@@ -1,10 +1,12 @@
 
 // hydrabolt's implemenation of discord.js
 var Discord = require("discord.js");
-// Email and Password of discordbot
+// email and password of discordbot
 var Login = require("./auth");
-// Maid-chan json from seroz
-var Response = require("./response.json");
+// response json from seroz
+var Response = require("./response");
+// fs to read/write json
+var fs = require("fs");
 
 const discordbot = new Discord.Client();
 
@@ -22,18 +24,28 @@ discordbot.on("disconnected", function () {
 	process.exit(1);
 });
 
-discordbot.on("message", function(msg){
+discordbot.on("message", function(message){
 
-    if (!msg.content.startsWith("$")) return;
+    if (!message.content.startsWith("$")) return;
 
-	msg.content = msg.content.substr(1);
+	message.content = message.content.substr(1);
 
-	if (Response.hasOwnProperty(msg.content)) {
-		discordbot.sendMessage(msg.channel,Response[msg.content]);
+	if (Response.hasOwnProperty(message.content)) {
+		discordbot.sendMessage(
+			message.channel,
+			Response[message.content]
+			);
+	}
+	
+	if (message.content.startsWith("add")) {
+		Response[message.content.split(" ").slice(1)] = message.content.split(" ").slice(2);
+		fs.writeFile('response.json', JSON.strijgify(response), function(err){
+			console.log(err);
+		})
 	}
 
-	if (msg.content === "stats") {
-		msg.reply([
+	if (message.content === "stats") {
+		message.reply([
 			"I am connected/have access to:",
 			`${discordbot.servers.length} servers`,
 			`${discordbot.channels.length} channels`,
@@ -41,19 +53,27 @@ discordbot.on("message", function(msg){
 		].join("\n"));
 	}
 
-	if (msg.content.startsWith("startplaying")) {
-		var game = msg.content.split(" ").slice(1).join(" ");
+	if (message.content.startsWith("startplaying")) {
+		var game = message.content.split(" ").slice(1).join(" ");
 		discordbot.setPlayingGame(game);
 	}
 
-	if (msg.content.startsWith("setname") && loose) {
-		discordbot.setUsername(msg.content.split(" ").slice(1).join(" ")).then(() => {
-			msg.reply("done!");
+	if (message.content.startsWith("setname") && loose) {
+		discordbot.setUsername(message.content.split(" ").slice(1).join(" ")).then(() => {
+			message.reply("done!");
 		});
 	}		
 
-	if(msg.content.startsWith("ping"))
-        	discordbot.reply(msg, "really?");
+	if(message.content.startsWith("ping"))
+        	discordbot.reply(message, "really?");
 });
 
 discordbot.login(Login.email, Login.password);
+
+
+
+// function logToChannel(message) {
+// 	discordbot.sendMessage(discordbot.get('', message);
+
+
+// }
