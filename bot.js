@@ -7,7 +7,7 @@ var Discord = require("discord.js");
 // Email and Password of discordbot
 var Login = require("./auth.json");
 // Maid-chan json from seroz
-var maidchan = require("./maid-chan");
+var Response = require("./response");
 
 var discordbot = new Discord.Client();
 
@@ -32,8 +32,8 @@ discordbot.on("message", function(msg){
 
 	msg.content = msg.content.substr(1);
 
-	if(maidchan.hasOwnProperty(msg.content)) {
-		msg.sendMessage(msg.channel,maidchan[msg.content]);
+	if(Response.hasOwnProperty(msg.content)) {
+		msg.sendMessage(msg.channel,Response[msg.content]);
 	}
 
 	if (msg.content === "stats") {
