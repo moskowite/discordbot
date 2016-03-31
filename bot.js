@@ -5,7 +5,7 @@
 // hydrabolt's implemenation of discord.js
 var Discord = require("discord.js");
 // Email and Password of discordbot
-var Login = require("./auth.json");
+var Login = require("./auth");
 // Maid-chan json from seroz
 var Response = require("./response");
 
@@ -32,7 +32,7 @@ discordbot.on("message", function(msg){
 
 	msg.content = msg.content.substr(1);
 
-	if(Response.hasOwnProperty(msg.content)) {
+	if (Response.hasOwnProperty(msg.content)) {
 		msg.sendMessage(msg.channel,Response[msg.content]);
 	}
 
