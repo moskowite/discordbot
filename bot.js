@@ -1,16 +1,12 @@
 
-
-
-
 // hydrabolt's implemenation of discord.js
 var Discord = require("discord.js");
 // Email and Password of discordbot
 var Login = require("./auth");
 // Maid-chan json from seroz
-var Response = require("./response");
+var Response = require("./response.json");
 
-var discordbot = new Discord.Client();
-
+const discordbot = new Discord.Client();
 
 //when the bot is ready
 discordbot.on("ready", function () {
@@ -33,7 +29,7 @@ discordbot.on("message", function(msg){
 	msg.content = msg.content.substr(1);
 
 	if (Response.hasOwnProperty(msg.content)) {
-		msg.sendMessage(msg.channel,Response[msg.content]);
+		discordbot.sendMessage(msg.channel,Response[msg.content]);
 	}
 
 	if (msg.content === "stats") {
@@ -59,7 +55,5 @@ discordbot.on("message", function(msg){
 	if(msg.content.startsWith("ping"))
         	discordbot.reply(msg, "really?");
 });
-
-
 
 discordbot.login(Login.email, Login.password);
