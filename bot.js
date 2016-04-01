@@ -38,10 +38,18 @@ discordbot.on("message", function(message){
 	}
 	
 	if (message.content.startsWith("add")) {
-		response[message.content.split(" ").slice(1)] = message.content.split(" ").slice(2);
+			console.log(message.content.split(" ")[1]);
+			console.log(message.content.split(" ").slice(2).join(" "));
+		response[message.content.split(" ")[1]] = message.content.split(" ").slice(2).join(" ");
 		fs.writeFile('response.json', JSON.stringify(response), function(err){
 			console.log(err);
 		})
+		discordbot.sendMessage(
+			message.channel,
+			'`' + message.content.split(" ")[1] + '`' +
+			" was added as a command by " +
+			message.author
+			);
 	}
 
 	if (message.content === "stats") {
