@@ -1,8 +1,6 @@
 
 // hydrabolt's implemenation of discord.js
 var discord = require("discord.js");
-// email and password of discordbot
-var login = require("./auth");
 // response json from seroz
 var response = require("./response");
 // fs to read/write json
@@ -66,7 +64,7 @@ discordbot.on("message", function(message){
 		discordbot.setPlayingGame(game);
 	}
 
-	if (message.content.startsWith("setname") && loose) {
+	if (message.content.startsWith("setname")) {
 		discordbot.setUsername(message.content.split(" ").slice(1).join(" ")).then(() => {
 			message.reply("done!");
 		});
@@ -76,10 +74,14 @@ discordbot.on("message", function(message){
         	discordbot.reply(message, "really?");
 });
 
-discordbot.login(login.email, login.password);
+discordbot.login(process.env.EMAIL, process.env.PASSWORD);
 
 
-
+function isAdmin(user){
+	
+	
+	
+}
 // function logToChannel(message) {
 // 	discordbot.sendMessage(discordbot.get('', message);
 
