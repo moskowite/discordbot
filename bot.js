@@ -34,19 +34,16 @@ discordbot.on("message", function(message){
 	
 	if(message.content.startsWith("loading")) {
 		var loading = ['|','/','-','\\'];
-		discordbot.sendMessage(
-			message,
-			'`' + '|' + '`'
-		).then(msg => {
-			for(var i = 0; i < 30; i++) {
-				discordbot.updateMessage(
-					msg,
-					'`' + loading[i % 4] + '`'
-					);
+		for(var i = 0; i < 30; i++) {
+			discordbot.sendMessage(
+				message,
+				'`' + loading[i % 4] + '`'
+			).then(msg => {
+				discordbot.deleteMessage(msg);
+				console.log(i);
+			});
 			setTimeout(function() {}, 1500);
-			console.log(i);
-			}
-		});
+		}
 		console.log('end');
 	}
 	
