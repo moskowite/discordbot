@@ -10,24 +10,46 @@ const discordbot = new discord.Client();
 
 //when the bot is ready
 discordbot.on("ready", function () {
-	console.log("Ready to begin! Serving in " + discordbot.channels.length + " channels");
+	console.log(
+		"Ready to begin! Serving in " + 
+		discordbot.channels.length + 
+		" channels"
+		);
 });
 
 //when the bot disconnects
 discordbot.on("disconnected", function () {
 	//alert the console
 	console.log("Disconnected!");
-
+	
 	//exit node.js with an error
 	process.exit(1);
 });
-
+	
 discordbot.on("message", function(message){
-
-    if (!message.content.startsWith("$")) return;
-
+	
+	if (!message.content.startsWith("$")) return;
+	
 	message.content = message.content.substr(1);
-
+	
+	if(message.content.startsWith("loading")) {
+		var loading = ['|','/','-','\\'];
+		discordbot.sendMessage(
+			message,
+			'`' + '|' + '`'
+		).then(msg => {
+			for(var i = 0; i < 30; i++) {
+				discordbot.updateMessage(
+					msg,
+					'`' + loading[i % 4] + '`'
+					);
+			setTimeout(function() {}, 1500);
+			console.log(i);
+			}
+		});
+		console.log('end');
+	}
+	
 	if (response.hasOwnProperty(message.content)) {
 		discordbot.sendMessage(
 			message.channel,
@@ -68,20 +90,16 @@ discordbot.on("message", function(message){
 		discordbot.setUsername(message.content.split(" ").slice(1).join(" ")).then(() => {
 			message.reply("done!");
 		});
-	}		
+	}
 
 	if(message.content.startsWith("ping"))
         	discordbot.reply(message, "really?");
 });
 
-discordbot.login(process.env.EMAIL, process.env.PASSWORD);
+discordbot.login(process.env.EMAIL, process.env.PASSWORD, function(error, token){
+	
+});
 
-
-function isAdmin(user){
-	
-	
-	
-}
 // function logToChannel(message) {
 // 	discordbot.sendMessage(discordbot.get('', message);
 
