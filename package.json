@@ -1,15 +1,25 @@
 {
-  "name": "discordbot",
-  "version": "1.0.0",
+  "name": "bronson",
   "description": "",
-  "main": "bot.js",
+  "author": {
+    "Tyler Moskowite"
+  },
+  "homepage": "https://github.com/moskowite/discordbot#readme",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^6.1.0",
+    "gcloud":"^0.30.2"
+  },
+  "main": "./lib/index",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moskowite/discordbot.git"
+  },
+  "files": [
+    "lib/"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "discord.js": "^6.1.0",
-    "auth.json":""
-  }
+  "version": "0.0.1"
 }
