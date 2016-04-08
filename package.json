@@ -16,7 +16,7 @@
     "url": "git+https://github.com/moskowite/discordbot.git"
   },
   "files": [
-    "lib/"
+    "lib/league.js"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
